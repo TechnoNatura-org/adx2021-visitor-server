@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".", // This must be specified if "paths" is.
+		"target": "ES2017",
+		"module": "commonjs",
+		"outDir": "dist",
+		"allowJs": true,
+		"sourceMap": false,
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"paths": {
+			"@/components/*": ["components/*"],
+			"@/ts/*": ["ts/*"],
+			"@/models/*": ["src/models/*"],
+			"@/controllers/*": ["src/controllers/*"]
+		},
+		"typeRoots": ["@types", "./node_modules/@types"]
+	},
+	"exclude": ["node_modules"]
+}

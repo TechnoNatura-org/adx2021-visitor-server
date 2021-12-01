@@ -1,0 +1,8 @@
+	req.io
+								.of('/websocket/arduino')
+								.to(socketGlobal.id)
+								.emit('arduino.sensor.data', {
+									sensorId: sensorId,
+									realtimedata: sensor.realtimeData.data,
+									dateAdded: sensor.realtimeData.dateAdded,
+								});

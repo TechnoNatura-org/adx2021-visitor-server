@@ -48,7 +48,12 @@ app.get('/', (req, res) => {
 	req.io.of('/websocket').sockets.forEach((socket) => {
 		//   console.log(socket);
 	});
-	res.json({ message: 'hey', sockets: visitorSockets.visitors });
+	res.json({
+		message: 'hey',
+		sockets: visitorSockets.visitors.filter(
+			(visitor) => visitor.user?.statusVisitor,
+		),
+	});
 });
 
 io.of('/websocket/visitor').on('connection', (socket) => {

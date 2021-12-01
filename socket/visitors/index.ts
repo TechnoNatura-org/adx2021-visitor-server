@@ -13,31 +13,37 @@ export default function ArduinoSocket(req: Request, socketGlobal: Socket) {
 	socketGlobal.on(
 		'setSelf',
 		async (self: {
-			nama_lengkap: string;
-			level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-			status: 'orang-tua' | 'saudara';
+			statusVisitor:
+				| 'Mentor'
+				| 'Siswa'
+				| 'Orang Tua'
+				| 'Lainnya'
+				| 'Saudara'
+				| '';
+			levelSiswa: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+			namaPengunjung: string;
+			namaLengkapSiswa: string;
 			id: string;
 		}) => {
 			const socket = visitorSockets.visitors.find(
 				(sck) => sck.socketId == socketGlobal.id,
 			);
 
-			socket?.setSelf({
-				userId: self.id,
-				nama_lengkap: self.nama_lengkap,
-				level: self.level,
-				status: 'siswa',
-			});
+			socket?.setSelf(self);
 			req.io
 				.of('/websocket/visitor')
 				.emit(
 					'visitorNumbers',
-					visitorSockets.visitors.filter((visitor) => visitor.user).length,
+					visitorSockets.visitors.filter(
+						(visitor) => visitor.user?.statusVisitor,
+					).length,
 				);
 
 			req.io.of('/websocket/visitor').emit(
 				'visitors',
-				visitorSockets.visitors.filter((visitor) => visitor.user),
+				visitorSockets.visitors.filter(
+					(visitor) => visitor.user?.statusVisitor,
+				),
 			);
 		},
 	);
@@ -73,12 +79,16 @@ export default function ArduinoSocket(req: Request, socketGlobal: Socket) {
 				.of('/websocket/visitor')
 				.emit(
 					'visitorNumbers',
-					visitorSockets.visitors.filter((visitor) => visitor.user).length,
+					visitorSockets.visitors.filter(
+						(visitor) => visitor.user?.statusVisitor,
+					).length,
 				);
 
 			req.io.of('/websocket/visitor').emit(
 				'visitors',
-				visitorSockets.visitors.filter((visitor) => visitor.user),
+				visitorSockets.visitors.filter(
+					(visitor) => visitor.user?.statusVisitor,
+				),
 			);
 			// console.log(req.arduinoSockets);
 			//   console.log(arduinoSockets);
@@ -104,12 +114,16 @@ export default function ArduinoSocket(req: Request, socketGlobal: Socket) {
 				.of('/websocket/visitor')
 				.emit(
 					'visitorNumbers',
-					visitorSockets.visitors.filter((visitor) => visitor.user).length,
+					visitorSockets.visitors.filter(
+						(visitor) => visitor.user?.statusVisitor,
+					).length,
 				);
 
 			req.io.of('/websocket/visitor').emit(
 				'visitors',
-				visitorSockets.visitors.filter((visitor) => visitor.user),
+				visitorSockets.visitors.filter(
+					(visitor) => visitor.user?.statusVisitor,
+				),
 			);
 		}
 	});

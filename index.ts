@@ -3,6 +3,8 @@ import * as express from 'express';
 import * as methodOverride from 'method-override';
 import * as helmet from 'helmet';
 import VisitorSockets from './socket/visitors';
+import * as cors from 'cors';
+import { corsOptions } from './corsOption';
 
 import { createServer } from 'http';
 import { Server } from 'socket.io';

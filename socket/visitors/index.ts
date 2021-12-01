@@ -34,6 +34,11 @@ export default function ArduinoSocket(req: Request, socketGlobal: Socket) {
 					'visitorNumbers',
 					visitorSockets.visitors.filter((visitor) => visitor.user).length,
 				);
+
+			req.io.of('/websocket/visitor').emit(
+				'visitors',
+				visitorSockets.visitors.filter((visitor) => visitor.user),
+			);
 		},
 	);
 
@@ -64,6 +69,17 @@ export default function ArduinoSocket(req: Request, socketGlobal: Socket) {
 				(socket) => socket.socketId != socketGlobal.id,
 			);
 
+			req.io
+				.of('/websocket/visitor')
+				.emit(
+					'visitorNumbers',
+					visitorSockets.visitors.filter((visitor) => visitor.user).length,
+				);
+
+			req.io.of('/websocket/visitor').emit(
+				'visitors',
+				visitorSockets.visitors.filter((visitor) => visitor.user),
+			);
 			// console.log(req.arduinoSockets);
 			//   console.log(arduinoSockets);
 		}
@@ -90,6 +106,11 @@ export default function ArduinoSocket(req: Request, socketGlobal: Socket) {
 					'visitorNumbers',
 					visitorSockets.visitors.filter((visitor) => visitor.user).length,
 				);
+
+			req.io.of('/websocket/visitor').emit(
+				'visitors',
+				visitorSockets.visitors.filter((visitor) => visitor.user),
+			);
 		}
 	});
 }

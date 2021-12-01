@@ -5,6 +5,7 @@ import * as helmet from 'helmet';
 import VisitorSockets from './socket/visitors';
 import * as cors from 'cors';
 import { corsOptions } from './corsOption';
+import { visitorSockets } from './subcribers';
 
 import { createServer } from 'http';
 import { Server } from 'socket.io';
@@ -47,7 +48,7 @@ app.get('/', (req, res) => {
 	req.io.of('/websocket').sockets.forEach((socket) => {
 		//   console.log(socket);
 	});
-	res.json({ message: 'hey' });
+	res.json({ message: 'hey', sockets: visitorSockets.visitors });
 });
 
 io.of('/websocket/visitor').on('connection', (socket) => {

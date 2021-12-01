@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "nodemon --exec ts-node index.ts",
+		"dev": "nodemon -w --copy-files ts-node index.ts",
 		"build": "tsc",
 		"start": "tsc && nodemon dist/index.js"
 	},
@@ -16,7 +16,7 @@
 		"@types/express": "^4.17.13",
 		"@types/method-override": "^0.0.32",
 		"@types/node": "^16.11.10",
-		"ts-node-dev": "^1.1.8",
+		"ts-node-dev": "^1.1.6",
 		"typescript": "^4.5.2"
 	},
 	"dependencies": {
@@ -25,7 +25,7 @@
 		"helmet": "^4.6.0",
 		"http": "^0.0.1-security",
 		"method-override": "^3.0.0",
-		"nodemon": "^2.0.15",
+		"nodemon": "^2.0.7",
 		"socket.io": "^4.4.0"
 	}
 }

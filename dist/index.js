@@ -44,7 +44,13 @@ io.of('/websocket/visitor').on('connection', (socket) => {
     (0, visitors_1.default)(app.request, socket);
 });
 async function startServer() {
-    http.listen({ port: process.env.PORT || 3030 });
-    console.log(`Connected successfully on port ${port}`);
+    await new Promise((resolve) => http.listen({ port: process.env.PORT || 3030 }))
+        .then(() => {
+        console.log(`Connected successfully on port ${port}`);
+        return { app };
+    })
+        .catch(() => {
+        return { app };
+    });
 }
 startServer();

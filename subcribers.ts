@@ -12,16 +12,22 @@ export type visitorSocketT = {
 export type userT = {
 	nama_lengkap: string;
 	level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-	status: 'orang-tua' | 'saudara';
+	status: 'orang-tua' | 'saudara' | 'siswa' | 'teman';
 	userId: string;
 };
 
 export type visitorSocketsT = Array<visitorSocketT>;
 
+export type socketSubscribeT = {
+	visitorNumbers: boolean;
+	visitors: boolean;
+};
+
 class visitorSocketClass {
 	public socketId: string;
 	public position?: visitorPosition;
 	public user?: userT;
+	public subscribe?: socketSubscribeT;
 	constructor(socketId: string, position?: visitorPosition) {
 		this.socketId = socketId;
 
@@ -68,16 +74,16 @@ class visitorSocketsClass {
 		// this.rooms.forEach((socket) => {
 		// 	// if (socket.subscribe.datas.includes(String(sensorId))) {
 		// 	console.log('socket.socketId', socket.socketId);
-		// 	req.io
-		// 		.of('/websocket/visitor')
-		// 		.to(socket.socketId)
-		// 		.emit('visitor.sensor.datas', {
-		// 			sensorId: sensorId,
-		// 			data: data,
-		// 			dateAdded: dateAdded,
-		// 			id: id,
-		// 		});
-		// 	// }
+		// req.io
+		// 	.of('/websocket/visitor')
+		// 	.to(socket.socketId)
+		// 	.emit('visitor.sensor.datas', {
+		// 		sensorId: sensorId,
+		// 		data: data,
+		// 		dateAdded: dateAdded,
+		// 		id: id,
+		// 	});
+		// }
 		// });
 	}
 

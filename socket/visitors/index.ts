@@ -12,22 +12,28 @@ export default function ArduinoSocket(req: Request, socketGlobal: Socket) {
 
 	socketGlobal.on(
 		'setSelf',
-		async (
-			self: {
-				nama_lengkap: string;
-				level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-				status: 'orang-tua' | 'saudara';
-				userId: string;
-			},
-			e: any,
-			p: any,
-		) => {
-			//   console.log(socket.id, data, e, p);
+		async (self: {
+			nama_lengkap: string;
+			level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+			status: 'orang-tua' | 'saudara';
+			id: string;
+		}) => {
 			const socket = visitorSockets.visitors.find(
 				(sck) => sck.socketId == socketGlobal.id,
 			);
 
-			socket?.setSelf(self);
+			socket?.setSelf({
+				userId: self.id,
+				nama_lengkap: self.nama_lengkap,
+				level: self.level,
+				status: 'siswa',
+			});
+			req.io
+				.of('/websocket/visitor')
+				.emit(
+					'visitorNumbers',
+					visitorSockets.visitors.filter((visitor) => visitor.user).length,
+				);
 		},
 	);
 
@@ -77,6 +83,13 @@ export default function ArduinoSocket(req: Request, socketGlobal: Socket) {
 			visitorSockets.visitors = visitorSockets.visitors.filter(
 				(socket) => socket.socketId != socketGlobal.id,
 			);
+
+			req.io
+				.of('/websocket/visitor')
+				.emit(
+					'visitorNumbers',
+					visitorSockets.visitors.filter((visitor) => visitor.user).length,
+				);
 		}
 	});
 }

@@ -70,6 +70,17 @@ app.get('/reload-all-web', (req, res) => {
 	});
 });
 
+app.get('/broadcast', (req, res) => {
+	const { msg, duration } = req.query;
+	io.of('/websocket/visitor').emit('broadcast-message', {
+		msg: msg,
+		duration: duration,
+	});
+	res.json({
+		message: 'success!',
+	});
+});
+
 io.of('/websocket/visitor').on('connection', (socket) => {
 	if (!app.request.io) {
 		app.request.io = io;

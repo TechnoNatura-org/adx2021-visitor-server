@@ -74,7 +74,7 @@ app.get('/broadcast', (req, res) => {
 	const { msg, duration } = req.query;
 	io.of('/websocket/visitor').emit('broadcast-message', {
 		msg: msg,
-		duration: duration,
+		duration: duration ? duration : 1000,
 	});
 	res.json({
 		message: 'success!',

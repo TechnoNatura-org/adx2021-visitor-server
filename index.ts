@@ -56,6 +56,13 @@ app.get('/', (req, res) => {
 	});
 });
 
+app.get('/sockets', (req, res) => {
+	res.json({
+		message: 'hey',
+		sockets: visitorSockets.visitors.filter((visitor) => visitor.user),
+	});
+});
+
 io.of('/websocket/visitor').on('connection', (socket) => {
 	if (!app.request.io) {
 		app.request.io = io;

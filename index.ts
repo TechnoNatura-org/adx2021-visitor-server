@@ -63,6 +63,13 @@ app.get('/sockets', (req, res) => {
 	});
 });
 
+app.get('/reload-all-web', (req, res) => {
+	io.of('/websocket/visitor').emit('reload', 'hi');
+	res.json({
+		message: 'success!',
+	});
+});
+
 io.of('/websocket/visitor').on('connection', (socket) => {
 	if (!app.request.io) {
 		app.request.io = io;

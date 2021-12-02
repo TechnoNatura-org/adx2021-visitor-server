@@ -24,6 +24,7 @@ export default function ArduinoSocket(req: Request, socketGlobal: Socket) {
 			namaPengunjung: string;
 			namaLengkapSiswa: string;
 			id: string;
+			nama: string;
 
 			genderSiswa?: string;
 			genderPengunjung?: string;

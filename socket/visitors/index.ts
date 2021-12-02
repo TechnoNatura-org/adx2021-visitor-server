@@ -24,6 +24,9 @@ export default function ArduinoSocket(req: Request, socketGlobal: Socket) {
 			namaPengunjung: string;
 			namaLengkapSiswa: string;
 			id: string;
+
+			genderSiswa?: string;
+			genderPengunjung?: string;
 		}) => {
 			const socket = visitorSockets.visitors.find(
 				(sck) => sck.socketId == socketGlobal.id,

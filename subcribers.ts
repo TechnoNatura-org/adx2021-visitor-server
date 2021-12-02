@@ -15,6 +15,9 @@ export type userT = {
 	namaPengunjung: string;
 	namaLengkapSiswa: string;
 	id: string;
+
+	genderSiswa?: string;
+	genderPengunjung?: string;
 };
 
 export type visitorSocketsT = Array<visitorSocketT>;
